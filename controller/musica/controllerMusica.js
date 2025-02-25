@@ -1,5 +1,5 @@
 /*
-Obejetivo: Controller referente as ações de CRUD de Música 
+Objetivo: Controller referente as ações de CRUD de Música 
 Data : 11?02/2025
 
 */ 
@@ -11,11 +11,13 @@ const musicaDAO = require('../../model/DAO/musica.js')
 
 //Função para inserir uma nova musica
 const inserirMusica = async function(musica){
-
+    try {
+        
+    
     if(musica.nome            == '' || musica.nome            == null || musica.nome            == undefined || musica.nome.length            > 100 ||
-       musica.ducacao         == '' || musica.duracao         == null || musica.ducacao         == undefined || musica.duracao.length         > 5   ||
+       musica.duracao         == '' || musica.duracao         == null || musica.duracao         == undefined || musica.duracao.length         > 8  ||
        musica.data_lancamento == '' || musica.data_lancamento == null || musica.data_lancamento == undefined || musica.data_lancamento.length > 10  ||
-       musica.letra    == undefined || musica.link       == undefined || musica.link                                                          > 200
+       musica.letra    == undefined || musica.link       == undefined || musica.link.length                                                         > 200
     ){
         return message.ERROR_REQUIRED_FIELDS//status code 400
     }else{
@@ -25,9 +27,13 @@ const inserirMusica = async function(musica){
         if(resultMusica){
             return message.SUCCESS_CREATED_ITEM // 201
         }else{
-            return message.ERROR_INTERNAL_SERVER//500
+            return message.ERROR_INTERNAL_SERVER_MODEL//500
         }
     }
+    } catch (error) {
+        return message.ERROR_INTERNAR_SERVER_CONTROLLER //500
+}
+
 }
 
 //Função para atualizar uma musica existente

@@ -9,6 +9,7 @@ const {prismaClient, PrismaClient} = require ('@prisma/client')
 
 //Função para inserir uma nova musica 
 const insertMusica = async function (musica){
+    try {  
     //Instancia da classe do prisma client(cria um objeto)
     const prisma = new PrismaClient()
 let sql = ` insert into tbl_musica (nome, 
@@ -26,10 +27,15 @@ let sql = ` insert into tbl_musica (nome,
 //Executa o script SQL no banco de dados e aguarda o resultado (true ou false)
 let result = await prisma.$executeRawUnsafe(sql)
 
-if(result)
-    return true
-else 
-return false  
+    if(result)
+        return true
+    else 
+        return false  //Bug do BD
+    
+    } catch (error) {
+        return false //Bug de Programação 
+    }
+
 }
 //Função para atualizar um musica existente
 const updateMusica = async function () {
