@@ -6,12 +6,14 @@
 ***************************************************************/
 //Import da biblioteca do prisma client para realizar as ações no Banco de Dados 
 const {prismaClient, PrismaClient} = require ('@prisma/client')
+//Instancia da classe do prisma client(cria um objeto)
+const prisma = new PrismaClient()
 
 //Função para inserir uma nova musica 
 const insertMusica = async function (musica){
     try {  
-    //Instancia da classe do prisma client(cria um objeto)
-    const prisma = new PrismaClient()
+    
+    
 let sql = ` insert into tbl_musica (nome, 
                          duracao, 
                          data_lancamento,
@@ -49,9 +51,17 @@ const deleteMusica = async function () {
 //Função para retornar todas as musicas no banco de dados 
 const selectAllMusica = async function () {
     try {
+        let sql = 'select * from tbl_musica order by id desc'
+//Encaminha o script sql para o BD 
+        let result = await prisma.$queryRawUnsafe(sql)
         
+        if(result)
+            return result//Retorna os dados do Banco
+        else 
+        return false
+
     } catch (error) {
-        
+        return false
     }
 }
 //Função para listar uma musica pelo id 

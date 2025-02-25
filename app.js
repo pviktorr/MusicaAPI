@@ -50,6 +50,13 @@ app.post('/v1/controle-musicas/musica', cors(), bodyParserJSON, async function (
 
 })
 
+app.get('/v1/controle-musicas/musica', cors(), bodyParserJSON, async function (request, response) {
+    let resultMusica = await controllerMusica.listarMusica()
+
+    response.status(resultMusica.status_code)
+    response.json(resultMusica)
+})
+
 app.listen(8080, function(){
     console.log('API aguardando requisições...')
 })

@@ -54,6 +54,34 @@ const excluirMusica = async function(){
 
 //Função para retornar uma lista de músicas
 const listarMusica = async function(){
+    try {
+        //Obejto JSON 
+        let dadosMusica = {}
+
+    //Chama a função para retornar as musicas do banco de dados
+     let resultMusica = await musicaDAO.selectAllMusica()  
+
+
+      if (resultMusica != false){
+        //Cria um JSON para colocar o rarry de musicas
+        if(resultMusica.length > 0 ){
+            dadosMusica.status = true
+            dadosMusica.status_code = 200,
+            dadosMusica.items = resultMusica.length
+            dadosMusica.musics = resultMusica
+
+            return dadosMusica
+         }else{
+            return message.ERROR_NOT_FOUND //404
+         }
+
+      }else{
+        return message.ERROR_INTERNAR_SERVER_MODEL // 500
+      }
+     
+    } catch (error) {
+        return message.ERROR_INTERNAR_SERVER_CONTROLLER //500
+    }
     
 }
 
