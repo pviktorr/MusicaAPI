@@ -10,9 +10,10 @@ const message = require('../../modulo/config.js')
 const musicaDAO = require('../../model/DAO/musica.js')
 
 //Função para inserir uma nova musica
-const inserirMusica = async function(musica){
+const inserirMusica = async function(musica, contentType){
     try {
-        
+      
+    if(String(contentType).toLowerCase == 'application/json'){
     
     if(musica.nome            == '' || musica.nome            == null || musica.nome            == undefined || musica.nome.length            > 100 ||
        musica.duracao         == '' || musica.duracao         == null || musica.duracao         == undefined || musica.duracao.length         > 8  ||
@@ -26,10 +27,14 @@ const inserirMusica = async function(musica){
 
         if(resultMusica){
             return message.SUCCESS_CREATED_ITEM // 201
-        }else{
+        }else
             return message.ERROR_INTERNAL_SERVER_MODEL//500
-        }
+        
     }
+}else{
+    return message.ERROR_CONTENT_TYPE //415
+}
+
     } catch (error) {
         return message.ERROR_INTERNAR_SERVER_CONTROLLER //500
 }

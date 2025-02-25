@@ -33,6 +33,7 @@ let result = await prisma.$executeRawUnsafe(sql)
         return false  //Bug do BD
     
     } catch (error) {
+        console.log(error)
         return false //Bug de Programação 
     }
 
@@ -47,7 +48,11 @@ const deleteMusica = async function () {
 }
 //Função para retornar todas as musicas no banco de dados 
 const selectAllMusica = async function () {
-    
+    try {
+        
+    } catch (error) {
+        
+    }
 }
 //Função para listar uma musica pelo id 
 const selectByIdMusica = async function () {
