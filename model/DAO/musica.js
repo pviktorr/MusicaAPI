@@ -65,11 +65,25 @@ const selectAllMusica = async function () {
     }
 }
 //Função para listar uma musica pelo id 
-const selectByIdMusica = async function () {
-    
+const selectByIdMusica = async function (ID) {
+    try {
+        let sql = `select * from tbl_musica where id = ${ID}`
+        //Encaminha o script sql para o BD 
+
+                let result = await prisma.$queryRawUnsafe(sql)
+                
+                if(result)
+                    return result//Retorna os dados do Banco
+                else 
+                return false
+        
+    } catch (error) {
+        return false 
+    }
 }
 
 module.exports = {
+    
     insertMusica,
     updateMusica,
     deleteMusica, 

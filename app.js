@@ -57,6 +57,18 @@ app.get('/v1/controle-musicas/musica', cors(), bodyParserJSON, async function (r
     response.json(resultMusica)
 })
 
+app.get('/v1/controle-musicas/musicaID/:id', cors(), bodyParserJSON, async function (request,response) {
+    
+
+    let id =  request.params.id 
+    let resultMusica = await controllerMusica.buscarMusica(id)
+
+    response.status(resultMusica.status_code)
+    response.json(resultMusica)
+
+
+})
+
 app.listen(8080, function(){
     console.log('API aguardando requisições...')
 })

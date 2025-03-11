@@ -86,8 +86,41 @@ const listarMusica = async function(){
 }
 
 //Função para buscar uma musica pelo ID
-const buscarMusica = async function(){
-    
+const buscarMusica = async function(numero){
+
+    try {
+
+        let id = numero
+
+        if(id == "" || id == null || isNaN(id)|| id == undefined)   {
+            return message.ERROR_NOT_FOUND
+        } 
+        let dadosMusica = {}
+
+    //Chama a função para retornar as musicas do banco de dados
+     let resultMusica = await musicaDAO.selectByIdMusica(id)  
+
+
+      if (resultMusica != false || typeof(resultMusica) == 'object'){
+        //Cria um JSON para colocar o rarry de musicas
+        if(resultMusica.length > 0 ){
+            dadosMusica.status = true
+            dadosMusica.status_code = 200,
+            dadosMusica.items = resultMusica.length
+            dadosMusica.musics = resultMusica
+
+            return dadosMusica
+            
+         }else{
+            return message.ERROR_NOT_FOUND //404
+         }
+
+      }else{
+        return message.ERROR_INTERNAR_SERVER_MODEL // 500
+      }
+    } catch (error) {
+        return false 
+    }
 }
 
 module.exports = {
