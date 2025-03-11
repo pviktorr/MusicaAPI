@@ -17,11 +17,23 @@ const ERROR_NOT_FOUND = {status: false,  status_code: 404,    message: "Não for
 const SUCCESS_CREATED_ITEM = {status: true,  
                              status_code: 201,    
                              message:"Item criado com sucesso"}
+const SUCCESS_DELETE_ITEM = {
+    status: true,
+    status_code:200,
+    message: "Item excluido com sucesso!"
+}
+const SUCCESS_UPDATED_ITEM = {
+    status: true,
+    status_code: 200,
+    message: "Item atualizado com sucesso"
+}
 module.exports = {
         ERROR_REQUIRED_FIELDS,
         SUCCESS_CREATED_ITEM,
         ERROR_INTERNAR_SERVER_CONTROLLER,
         ERROR_INTERNAR_SERVER_MODEL,
         ERROR_CONTENT_TYPE,
-        ERROR_NOT_FOUND
+        ERROR_NOT_FOUND,
+        SUCCESS_DELETE_ITEM,
+        SUCCESS_UPDATED_ITEM
     }

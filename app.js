@@ -68,6 +68,39 @@ app.get('/v1/controle-musicas/musicaID/:id', cors(), bodyParserJSON, async funct
 
 
 })
+app.delete('/v1/controle-musicas/deleteMusica/:id',cors(), async function (request,response) {
+    let id = request.params.id
+
+    let resultMusica = await controllerMusica.excluirMusica(id)
+
+    response.status(resultMusica.status_code)
+    response.json(resultMusica)
+})
+
+app.put('/v1/controle-musicas/musica/:id',cors(), bodyParserJSON, async function (request,response){
+
+
+    //Recebe o id da musica
+    let idMusica = request.params.id
+
+
+    //receber os dados da requisiçao 
+    let dadosBody = request.body
+
+    //Recebe o content type 
+    let contentType = request.headers['content-type']
+
+   
+
+   
+
+    let resultMusica = await controllerMusica.atualizarMusica(idMusica,dadosBody,contentType)
+
+    response.status(resultMusica.status_code)
+    response.json(resultMusica)
+})
+
+
 
 app.listen(8080, function(){
     console.log('API aguardando requisições...')
